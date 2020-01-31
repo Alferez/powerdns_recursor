@@ -1,0 +1,75 @@
+#!/bin/bash
+echo "-------------------------------------"
+echo "                                     "
+echo "PowerDNS Recursor Server Version Info"
+echo "                                     "
+echo "          www.alferez.es"
+echo ""
+echo ""
+echo "  Debian version $(cat /etc/debian_version)"
+echo "  PowerDNS Version: $(/usr/sbin/pdns_recursor --version 2>&1  | head -n1 | awk '{print $6}')"
+echo "       Listen on 53/udp port"
+echo "                                     "
+echo "-------------------------------------"
+
+if [ ! -d /var/log/pdns ]
+then
+	mkdir /var/log/pdns
+fi
+
+echo "local0.info                       -/var/log/pdns/pdns.info
+local0.warn                       -/var/log/pdns/pdns.warn
+local0.err                        /var/log/pdns/pdns.err" >> /etc/rsyslog.conf
+
+/etc/init.d/rsyslog start
+
+
+if [ -z $ALLOWIP ]
+then
+	ALLOWIP="0.0.0.0/0"
+fi
+
+if [ -z $THREADS ]
+then
+	THREADS=2
+fi
+
+if [ -z $TTL ]
+then
+	TTL=36000
+
+fi
+
+if [ -z $ENTRIES ]
+then
+	ENTRIES=500000
+fi
+
+if [ -z $WEBSERVER ]
+then
+	WEBSERVER=no
+else
+	if [ -z $WEBPASS ]
+	then
+		WEBPASS="YourWebPassword"
+	fi
+fi
+
+for SERVER in $(grep nameserver /etc/resolv.conf | awk '{print $NF}'); do SERVERS="$SERVERS $SERVER"; done
+
+
+echo "";echo "";echo "";echo "Environment Setting"
+echo "-------------------"
+echo " ALLOWIP = $ALLOWIP"
+echo " THREADS = $THREADS"
+echo " Cache TTL = $TTL"
+echo " Cache ENRIES = $ENTRIES"
+echo " WEBSERVER = $WEBSERVER"
+echo " DNS SERVERS =$SERVERS"
+if [ "$WEBSERVER" != "no" ]
+then
+	echo " WEBPASS = $WEBPASS"
+fi
+echo "";echo "";echo ""
+
+/usr/sbin/pdns_recursor --allow-from=$ALLOWIP --setgid=pdns --setuid=pdns --server-id="PowerDNS Recursor dockerized by www.alferez.es" --max-cache-ttl=$TTL --max-mthreads=$ENTRIES --webserver=$WEBSERVER --webserver-password=$WEBPASS --local-address=0.0.0.0 --log-timestamp=yes --logging-facility=0 --loglevel=6 
