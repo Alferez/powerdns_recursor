@@ -1,7 +1,7 @@
 
 PowerDNS Recursor Server
 ========================
-          www.alferez.es
+     www.alferez.es
 
 
 To run:
@@ -30,6 +30,7 @@ Configure DNS Server:
 
 Run docker wit --dns=XXXXX values. Use one --dns for server.
 
+Example: docker run --name powerdns -d -p 53:53/udp --dns=1.1.1.1 --dns=8.8.8.8 --dns=9.9.9.9 alferez/powerdns_recursor
 
 
 
