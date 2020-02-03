@@ -6,7 +6,7 @@ PowerDNS Recursor Server
 
 To run:
 
-docker run --name powerdns -d -p 53:53/udp  alferez/powerdns_recursor
+docker run --name powerdns -d -p 53:53/udp -p 53:53 alferez/powerdns_recursor
 
 ENVIRONMENT VARIABLES:
 ----------------------
@@ -30,7 +30,7 @@ Configure DNS Server:
 
 Run docker wit --dns=XXXXX values. Use one --dns for server.
 
-Example: docker run --name powerdns -d -p 53:53/udp --dns=1.1.1.1 --dns=8.8.8.8 --dns=9.9.9.9 alferez/powerdns_recursor
+Example: docker run --name PowerDNS -d -p 53:53/udp -p 53:53 --dns=1.1.1.1 --dns=8.8.8.8 --dns=9.9.9.9 alferez/powerdns_recursor
 
 
 

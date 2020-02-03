@@ -27,5 +27,6 @@ RUN echo "export TERM=xterm" >> /root/.bashrc
 RUN echo 'Acquire::ForceIPv4 "true";' | tee /etc/apt/apt.conf.d/99force-ipv4
 
 EXPOSE 53/udp
+EXPOSE 53
 
 WORKDIR /root
