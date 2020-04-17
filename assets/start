@@ -77,4 +77,4 @@ then
 fi
 echo "";echo "";echo ""
 
-/usr/sbin/pdns_recursor --allow-from=$ALLOWIP --setgid=pdns --setuid=pdns --server-id="PowerDNS Recursor dockerized by www.alferez.es" --max-cache-ttl=$TTL --max-mthreads=$ENTRIES --webserver=$WEBSERVER --webserver-password=$WEBPASS --webserver-port=$WEBPORT --webserver-address=0.0.0.0 --api-key=$WEBPASS --local-address=0.0.0.0 --log-timestamp=yes --logging-facility=0 --loglevel=6 
+/usr/sbin/pdns_recursor --allow-from=$ALLOWIP --setgid=pdns --setuid=pdns --server-id="PowerDNS Recursor dockerized by www.alferez.es" --version-string="DNS Recursor by www.alferez.es" --max-cache-ttl=$TTL --max-mthreads=$ENTRIES --webserver=$WEBSERVER --webserver-password=$WEBPASS --webserver-port=$WEBPORT --webserver-address=0.0.0.0 --api-key=$WEBPASS --local-address=0.0.0.0 --log-timestamp=yes --logging-facility=0 --loglevel=6 
