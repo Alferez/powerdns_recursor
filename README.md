@@ -25,6 +25,8 @@ WEBPASS -> Set default password for Web Server
 
 WEBPORT -> Set web tcp port (Default 8082)
 
+FORWARDZONE -> Allow delegate to another server
+
 Configure DNS Server:
 ---------------------
 
